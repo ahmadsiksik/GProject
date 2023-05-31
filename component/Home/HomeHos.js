@@ -12,6 +12,8 @@ import classes from '../Profile/Cart.module.css';
 
 function WaitingRoom(props){
     const [search, setSearch] = useState('');
+    const [Date, setDate] = useState('');
+
     const [data, setData] = useState([]);
     const [Show, setShow] = useState(false);
     const [Close, setClose] = useState(true);
@@ -38,8 +40,11 @@ function WaitingRoom(props){
     const handleDelete=()=>{
         setShowForm(false)
     }
+    const handleDelete1=()=>{
+        setShowForm(true)
+    }
 
-    const fetchData = async () => {
+    const fetchData = async () => {         
       try {
         const response = await fetch('http://127.0.0.1:8000/donor/'); // استبدال الرابط برابط API الخاص بك
         const jsonData = await response.json();
@@ -52,13 +57,13 @@ function WaitingRoom(props){
 
     const fatchdata2=async()=>{
         try {
-
+            setDate(Donation_date2.current.value)
             const response = await fetch("http://127.0.0.1:8000/donors/find/", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(
                 {
-                   no_donors:2,
+                   no_donors:parseInt(num.current.value),
                    blood_type:Blood_group.current.value,
                    city: City.current.value,
             
@@ -92,14 +97,16 @@ function WaitingRoom(props){
             
             body: JSON.stringify(
               {
-                  donation_date : '2025-12-12' ,
-                  hospital_id: myData1,
+                donation_date : Date,
+                hospital_id: myData1,
                   donor_id: item.id,
                   will_donate: null,
               }
             ),
     
           });})
+          handleDelete1()
+          alert("تم الاستدعاء بنجاح");
         }
       
     const PostData=()=>{
@@ -138,7 +145,7 @@ function WaitingRoom(props){
                         <Nav />
                         <section className={classes.auth}>
                             <h1>{' فلتره المتبرعين '}</h1>
-                            <Form >
+                            < >
                                 <div className={classes.control}>
                                     <label htmlFor="Identifier">عدد الوحدات المطلوبه </label>
                                     <input type='number' id='identifier' required ref={num} />
@@ -160,7 +167,7 @@ function WaitingRoom(props){
 
                                     <div className={classes.control}>
                                     <label htmlFor='number'>اخر موعد للتبرع</label>
-                                    <input type='text' id='number' required ref={Donation_date2}  />
+                                    <input type='date' id='number' required ref={Donation_date2}  />
                                 </div>
 
 
@@ -186,7 +193,7 @@ function WaitingRoom(props){
                                         <button onClick={fatchdata2}>فلترة</button>
                                     )}
                                 </div>
-                            </Form>
+                            </>
                         </section>
                     </div>
                 </div>

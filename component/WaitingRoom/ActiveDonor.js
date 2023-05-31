@@ -95,13 +95,14 @@ function ActiveDonor(props) {
     };
     const updata=async(id,d_id)=>{
         try {
-            const response = await fetch(`http://127.0.0.1:8000/donor/rating/${d_id}/-1/`); // استبدال الرابط برابط API الخاص بك
+            console.log("hisham");
+            const response = await fetch(`http://127.0.0.1:8000/donor/rating/3/1/`); // استبدال الرابط برابط API الخاص بك
             const jsonData = await response.json();
-            setData(jsonData);
+            console.log(response.json());
           } catch (error) {
             alert('حدث خطأ في جلب البيانات:', error);
           }
-          ///////////
+          ///////////سلماا
       
       try {
         const response = await fetch(`http://127.0.0.1:8000/donations/${id}/delete/`, {

@@ -37,6 +37,8 @@ const Header = () => {
 
     }
 
+    console.log(myDataa,myData,myData11);
+
     const fetchData2 = async () => {
       try {
         const response = await fetch(`http://127.0.0.1:8000/donations/`); // استبدال الرابط برابط API الخاص بك
@@ -54,10 +56,10 @@ const Header = () => {
         AOS.refresh();
         fetchData2();
 
-        if(isAuth==="Donor"){
+        if(myDataa==="Donor"){
             setLoginDonor(true)
           }
-          if(isAuth==="Hos"){
+          if(myData11==="Hos"){
             setLoginHos(true)
           }
       }, []);
@@ -93,11 +95,11 @@ const Header = () => {
       
     return (
         <Fragment>
-          {!LoginHos &&
+          {LoginDonor &&
   <h1 className={classes.head}>طلبات التبرع</h1>
 
 }
-{!LoginHos &&
+{LoginDonor &&
   <Table striped bordered hover>
           <thead>
             <tr>
@@ -165,11 +167,11 @@ const Header = () => {
 
             </div>
     
-            {!LoginDonor &&!LoginHos &&
+            {!LoginDonor && !LoginHos &&
 
             <h2>مرحبا بكم في موقع التبرع بالدم الالكتروني</h2>
 } 
-            {!LoginDonor && !LoginHos&&
+            {!LoginDonor && !LoginHos  &&
 
             <div className={classes.flexContainer}>
 

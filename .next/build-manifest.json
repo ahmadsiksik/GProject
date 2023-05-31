@@ -15,15 +15,10 @@
   ],
   "rootMainFiles": [],
   "pages": {
-    "/ActiveDonors": [
+    "/HomeHos": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/ActiveDonors.js"
-    ],
-    "/WaitinRoom": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/WaitinRoom.js"
+      "static/chunks/pages/HomeHos.js"
     ],
     "/_app": [
       "static/chunks/webpack.js",
