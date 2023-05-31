@@ -20,6 +20,11 @@ function WaitingRoom(props) {
     const MyID = typeof localStorage !== 'undefined' ? localStorage.getItem('MyID') : null;
     const Donation_date = useRef();
     
+    var myData1;
+    if (typeof window !== "undefined") {
+      myData1 = window.localStorage.getItem('myData1')
+    }
+  
 
 
     const submitHandler = (event) => {
@@ -63,8 +68,10 @@ function WaitingRoom(props) {
       }
     };
 
-    const deleteData = async (id) => {
+    const deleteData = async (id,d_id) => {
       
+
+      ////////////////////////////////
       try {
         const response = await fetch(`http://127.0.0.1:8000/donations/${id}/delete/`, {
           method: 'DELETE',
@@ -104,74 +111,22 @@ function WaitingRoom(props) {
       <Container>
 
         <h1 className='text-center mt-4'>المتبرعين المتاحين </h1>
-        <Form>
 
-
-          <Form.Select style={{ width: '70px' }}>
-            <option label={"All"}
-              checked={search === "All"}
-              value=" "
-              onClick={(e) => setSearch(e.target.value)}>All</option>
-
-            <option label={"A+"}
-              checked={search === "A+"}
-              value="A+"
-              onClick={(e) => setSearch(e.target.value)}>A+</option>
-
-            <option label={"A-"}
-              checked={search === "A-"}
-              value="A-"
-              onClick={(e) => setSearch(e.target.value)}>A-</option>
-
-            <option label={"B+"}
-              checked={search === "B+"}
-              value="B+"
-              onClick={(e) => setSearch(e.target.value)}>B+</option>
-
-            <option label={"B-"}
-              checked={search === "B-"}
-              value="B-"
-              onClick={(e) => setSearch(e.target.value)}>B-</option>
-
-            <option label={"AB+"}
-              checked={search === "AB+"}
-              value="AB+"
-              onClick={(e) => setSearch(e.target.value)}>AB+</option>
-
-            <option label={"AB-"}
-              checked={search === "AB-"}
-              value="AB-"
-              onClick={(e) => setSearch(e.target.value)}>AB-</option>
-
-            <option label={"O+"}
-              checked={search === "O+"}
-              value="O+"
-              onClick={(e) => setSearch(e.target.value)}>O+</option>
-
-            <option label={"O-"}
-              checked={search === "O-"}
-              value="O-"
-              onClick={(e) => setSearch(e.target.value)}>O-</option>
-          </Form.Select>
-          {/* onChange for search */}
-        </Form>
-        <br />
+      
 
         <Table striped bordered hover>
           <thead>
             <tr>
+            <th>رقم اللتبرع</th>
               <th>رقم المستشفى</th>
-              <th>رقم اللتبرع</th>
               <th>تاريخ الموعد</th>
               <th>هل سوف يتبرع </th>
             </tr>
           </thead>
           <tbody>
-
             {data.filter((item) => {
-              return search.toLowerCase() === ''
-                ? item
-                : item.first_name.includes(search);
+console.log(myData1);
+              return  item.hospital__id == myData1&&item.will_donate==null;
             }).map((item, index) => (
               <tr key={index}>
                 <td>
@@ -187,16 +142,16 @@ function WaitingRoom(props) {
                 </td>
                 <td>
 
-                  {item.will_donate}
+                  <div>قيد المراجعة</div>
                 </td>
     
                 <td>
 
-                  <button onClick={()=>{deleteData(item.id)}}>حذف</button>
+                  <button onClick={()=>{deleteData(item.id,item.donor__id)}}>حذف</button>
                 </td>
                 <td>
 
-                  <button onClick={()=>{updata(item.id)}}>تعديل</button>
+                  <button onClick={()=>{updata(item.id,item.donor__id)}}>تعديل</button>
                 </td>
 
               </tr>

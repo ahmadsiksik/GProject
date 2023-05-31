@@ -16,54 +16,28 @@ function WaitingRoom(props){
     const [Show, setShow] = useState(false);
     const [Close, setClose] = useState(true);
     const Donation_date = useRef(null);
-    const blood_group = useRef(null);
-    const num = useRef(null);
-    const city = useRef(null);
+    const Donation_date2 = useRef(null);
+    const Blood_group = useRef();
+    const num = useRef();
+    const City = useRef();
     const [data2, setData2] = useState([]);
     const [Temp, setTemp] = useState('');
     const myData1 = typeof localStorage !== 'undefined' ? localStorage.getItem('myData1') : null;
     const Data = typeof localStorage !== 'undefined' ? localStorage.getItem('Data') : null;
     console.log(myData1, Data,"hisham");
-    let response;
-    const submitHandler =async (event) => {
-        event.preventDefault();
-        const Templ = {
-            donation_date : Donation_date.current.valueOf,
-            hospital_id: myData1,
-            donor_id: Data,
-            will_donate: false,
-        };
-        setTemp(Templ);
-        AddDonation();
-    };
+    const [showForm, setShowForm] = useState(true);
+
+    useEffect(() => {
+      }, []);
 
     const Cloose = () => {
         setClose(false);
         setShow(false);     
     };
 
-    const AddDonation = async () => {
-        try {
-            response = await fetch('http://127.0.0.1:8000/donations/create/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(Temp),
-            });
-
-            if (response.ok) {
-                alert('تم الإضافة بنجاح');
-            } else {
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    useEffect(() => {
-    setShow(false)
-      fetchData();
-    },[]);
-
+    const handleDelete=()=>{
+        setShowForm(false)
+    }
 
     const fetchData = async () => {
       try {
@@ -75,71 +49,50 @@ function WaitingRoom(props){
         alert('حدث خطأ في جلب البيانات:', error);
       }
     };
+
     const fatchdata2=async()=>{
         try {
+
+            const response = await fetch("http://127.0.0.1:8000/donors/find/", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(
+                {
+                   no_donors:2,
+                   blood_type:Blood_group.current.value,
+                   city: City.current.value,
             
-            response = await fetch("http://127.0.0.1:8000/donors/find/", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(
-                {
-                   no_donors:2,//num.current.value,
-                   blood_type:blood_group.current.value,
-                   city: city.current.value
                 }
-              ),
-      
-            });
-      
-            if (response.ok) {
-              const data = await response.json();
-              console.log(data.donors); 
-              setData2(data.donors);
-              /*  
-              (data.donors).map((item) => {
-              response =  fetch("http://127.0.0.1:8000/donations/create/", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(
-                {
-                    donation_date :Donation_date.current.value ,
-                    hospital_id: myData1,
-                    donor_id: item.id,
-                    will_donate: null,
-                }
+                
               ),
       
             });
 
-                
-              })  
-               */        
+            if (response.status === 200) {
+                console.log('cos');
+
+              const data = await response.json();
+              console.log(data.donors); 
+              setData2(data.donors);
             }
             
-            if (response.status === 200) {
-               
-            } else {
+            else {
               alert("فشل الدخول الرجاء التحقق من البيانات ");
             }
           } catch (error) {
             console.error(error);
           }
+          handleDelete();
     }
     const fatch=()=>{
         data2.map((item) => {
-            console.log({
-                donation_date :Donation_date.current.value ,
-                hospital_id: myData1,
-                donor_id: item.id,
-                will_donate: null,
-            });
-            response =  fetch("http://127.0.0.1:8000/donations/create/", {
+            const response=fetch("http://127.0.0.1:8000/donations/create/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             
             body: JSON.stringify(
               {
-                  donation_date :Donation_date.current.value ,
+                  donation_date : '2025-12-12' ,
                   hospital_id: myData1,
                   donor_id: item.id,
                   will_donate: null,
@@ -176,7 +129,8 @@ function WaitingRoom(props){
             <Nav />
 
             <Container>
-
+            {showForm ? (
+                <div>
                 <br />
                 <div className={classes.main}>
                 <div className={classes.overlay}>
@@ -184,7 +138,7 @@ function WaitingRoom(props){
                         <Nav />
                         <section className={classes.auth}>
                             <h1>{' فلتره المتبرعين '}</h1>
-                            <form >
+                            <Form >
                                 <div className={classes.control}>
                                     <label htmlFor="Identifier">عدد الوحدات المطلوبه </label>
                                     <input type='number' id='identifier' required ref={num} />
@@ -192,7 +146,7 @@ function WaitingRoom(props){
 
                                 <div className={classes.control}>
                                     <label htmlFor='number'>زمرة الدم</label>
-                                    <select name="Blood_group" id="blood_group" ref={blood_group} >
+                                    <select name="Blood_group" id="blood_group" ref={Blood_group} >
                                         <option value="A+" >A+</option>
                                         <option value="A-" >A-</option>
                                         <option value="B+" >B+</option>
@@ -206,13 +160,13 @@ function WaitingRoom(props){
 
                                     <div className={classes.control}>
                                     <label htmlFor='number'>اخر موعد للتبرع</label>
-                                    <input type='date' id='number' required ref={Donation_date}  />
+                                    <input type='text' id='number' required ref={Donation_date2}  />
                                 </div>
 
 
                                 <div className={classes.control}>
                                     <label htmlFor='number'>المدينة</label>
-                                    <select name="Blood_group" id="blood_group" ref={city} >
+                                    <select name="Blood_group" id="blood_group" ref={City} >
                                         <option value="Nablus" >Nablus</option>
                                         <option value="Tulkarm" >Tulkarm</option>
                                         <option value="Qalqilya" >Qalqilya</option>
@@ -232,12 +186,16 @@ function WaitingRoom(props){
                                         <button onClick={fatchdata2}>فلترة</button>
                                     )}
                                 </div>
-                            </form>
+                            </Form>
                         </section>
                     </div>
                 </div>
             </div>
-                <Table striped bordered hover>
+            </div>
+            )
+            :(
+                <div className={classes.form}>
+                <Table striped bordered hover >
                     <thead>
                         <tr>
                             <th>الاسم الاول</th>
@@ -255,9 +213,7 @@ function WaitingRoom(props){
                         </tr>
                     </thead>
                     <tbody>
-
                         {
-                        
                         data2.map((item, index) => (
                             <tr key={index}>
                                 
@@ -307,8 +263,6 @@ function WaitingRoom(props){
 
                                     {item.age}
                                 </td>
-                                
-                            
                             </tr>
                         ))}
             {Show && <Fragment>
@@ -339,9 +293,11 @@ function WaitingRoom(props){
                 <button type='submit' className={classes.button} onClick={fatch}>
                                             استدعاء الكل
                 </button>
-                    </tbody>
+                </tbody>
+                    
                 </Table>
-                
+                </div>
+                 )}
             </Container>
         </div>
     );

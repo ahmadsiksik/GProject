@@ -1,9 +1,13 @@
 import { Fragment, useState } from 'react'
 import { LoginHos } from '../../component/Login/LoginHos'
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../Store/auth';
 
 export default function LogInAsHos() {
   const history = useRouter();
+  const dispatch = useDispatch();
+
 
   const handleLogin= async (DonorLog)=> {
         console.log(DonorLog);
@@ -16,6 +20,7 @@ export default function LogInAsHos() {
         });
         if (response.status === 200) {
           // إعادة تهيئة حالة الرسالة بعد التخزين
+          dispatch(authActions.loginAsHos());
           history.replace('/HomeHos');
           alert("تم الدخول بنجاح")
         }
@@ -24,7 +29,9 @@ export default function LogInAsHos() {
         }
         const data = await response.json();
         console.log(data.id);
-        localStorage.setItem('myData1',data.id)
+        window.localStorage.setItem('myData1',data.id)
+        window.localStorage.setItem('myData11','Hos')
+    
 
     } catch (error) {
         console.error(error);

@@ -2,11 +2,15 @@ import React, { Fragment, useState, useEffect, createContext } from 'react';
 import { LoginDonor } from '../../component/Login/LoginDonor';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
+import { authActions } from '../../Store/auth';
 
 export const AuthContext = createContext({
   donorId: '',
   setDonorId: () => {}
 });
+
+
+
 
 export default function LogInAsDoner(props) {
   const [donorId, setDonorId] = useState();
@@ -22,16 +26,18 @@ export default function LogInAsDoner(props) {
         body: JSON.stringify(DonorLog),
 
       });
-
+      
       if (response.ok) {
         const data = await response.json();
         console.log(data.donor_id);
         setDonorId(data.donor_id);
-        localStorage.setItem('myData',data.donor_id)
+        window.localStorage.setItem('myData',data.donor_id)
+        window.localStorage.setItem('myDataa','Donor')
       }
       console.log(donorId);
 
       if (response.status === 200) {
+        dispatch(authActions.loginAsDonor());
         history.replace('/');
         alert("تم الدخول بنجاح");
       } else {

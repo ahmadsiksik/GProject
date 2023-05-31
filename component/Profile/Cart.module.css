@@ -5,7 +5,7 @@
     margin-top: 5%;
     font-family: arial;
     height: 200px;
-    background-color: rgb(182, 26, 26);
+    background-color: rgb(76, 71, 71);
     color: #ffffff;
     padding:1%;
   }
@@ -39,7 +39,7 @@
     width: 95%;
     max-width: 25rem;
     border-radius: 6px;
-    background-color: rgb(182, 26, 26);
+    background-color: rgb(76, 71, 71);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     padding: 1rem;
     text-align: center;
@@ -112,7 +112,6 @@
 
   .main {
     width: 100%;
-    height: 100vh;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -128,4 +127,11 @@
     height: 100%;
     background-color: rgba(0,0,0,.4);
     /* background-color: #000000cc; */
+  }
+
+  .form{
+    padding-top: 5%;
+  }
+  
+  .b1{
   }

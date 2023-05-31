@@ -11,58 +11,18 @@ import classes from '../Profile/Cart.module.css';
 import axios from 'axios';
 
 function PaindingRoom(props){
-    const [search, setSearch] = useState('');
     const [data, setData] = useState([]);
     const [Show, setShow] = useState(false);
-    const [Close, setClose] = useState(true);
-    const Donation_date = useRef('');
 
-
-    const [Temp, setTemp] = useState('');
-    const MyID = typeof localStorage !== 'undefined' ? localStorage.getItem('MyID') : null;
-
-    const Data = typeof localStorage !== 'undefined' ? localStorage.getItem('Data') : null;
 
     let response;
-    const submitHandler =async (event) => {
-        event.preventDefault();
-        const Templ = {
-            donation_date : Donation_date.current.valueOf,
-            hospital_id: myData1,
-            donor_id: Data,
-            will_donate: false,
-        };
-        setTemp(Templ);
-        console.log(Temp);
-        AddDonation();
-    };
 
-    const Cloose = () => {
-        setClose(false);
-        setShow(false);     
-    };
-
-    const AddDonation = async () => {
-        try {
-            response = await fetch('http://127.0.0.1:8000/donations/create/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(Temp),
-            });
-
-            if (response.ok) {
-                alert('تم الإضافة بنجاح');
-            } else {
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
 
     useEffect(() => {
     setShow(false)
       fetchData();
     },[]);
+    
     const deleteacc = async (id) => {
         const url = `http://127.0.0.1:8000/donor/${id}/delete/`;
         console.log(id);
@@ -98,11 +58,6 @@ function PaindingRoom(props){
     };
 
 
-    const PostData=()=>{
-        setShow(true)
-    }
-
-    console.log(Show);
 
 
     // const sortName = () => {
@@ -184,31 +139,7 @@ function PaindingRoom(props){
                                 </td>
                             </tr>
                         ))}
-            {Show && <Fragment>
-                <div className={classes.main}>
-                    <div className={classes.overlay}>
-                        <div className={classes.content}>
-                            <section className={classes.auth}>
-                                <form >
-                                    <div className={classes.control}>
-                                        <label htmlFor='date'>موعد التبرع </label>
-                                        <input type='date' id='date' required ref={Donation_date} />
-                                    </div>
-
-                                    <div className={classes.actions}>
-                                        <button type='submit' className={classes.button} onClick={submitHandler}>
-                                            Done
-                                        </button>
-                                        <button type='button' className={classes.button} onClick={Cloose}>
-                                            Close
-                                        </button>
-                                    </div>
-                                </form>
-                            </section>
-                        </div>
-                    </div>
-                </div>
-                </Fragment>}
+        
 
                     </tbody>
                 </Table>

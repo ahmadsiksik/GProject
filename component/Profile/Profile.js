@@ -2,10 +2,9 @@ import React, { useState, useEffect, useContext, Fragment } from 'react';
 import classes from './Profile.module.css';
 import Nav from '../Home/Nav';
 import Cart from './Cart';
-import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.css'
 import { AuthContext } from '../../pages/login/LogInAsDoner';
-import Table from 'react-bootstrap/Table';
+
 const Profile = () => {
   const [Show, setShow] = useState(false);
   const [data, setData] = useState(null);
@@ -15,11 +14,12 @@ const Profile = () => {
   const[Temp1,useTemp1]=useState()
   const [data2, setData2] = useState([]);
   const { donorId } = useContext(AuthContext);
-  const myData1=localStorage.getItem('myData1')
-  const Data = localStorage.getItem('Data');
-  const myData = localStorage.getItem('myData')
-
-  
+  // const myData1=localStorage.getItem('myData1')
+  // const Data = localStorage.getItem('Data');
+  var myData ;
+  if (typeof window !== "undefined") {
+     myData = window.localStorage.getItem('myData')
+  }
 
   const fetchData2 = async () => {
     const Templat = {
@@ -28,6 +28,7 @@ const Profile = () => {
   const Templat1 = {
     will_donate: false,
   };
+
     useTemp(Templat);
     useTemp1(Templat1); 
     try {
@@ -40,6 +41,7 @@ const Profile = () => {
       alert('حدث خطأ في جلب البيانات:', error);
     }
   };
+
   const Done =async()=>{
     try {
       const response = await fetch(`http://127.0.0.1:8000/donations/21/patch/`, {
@@ -99,6 +101,7 @@ const Profile = () => {
     setShow(true);
   }
 
+
   useEffect(() => {
     fetchData();
     fetchData2();
@@ -142,55 +145,6 @@ const Profile = () => {
           <button className={classes.button} onClick={() => handleDelete(myData)}>حذف</button>
           {Show && <Cart />}
         </div>
-
-
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-            <th>رقم اللتبرع</th>
-              <th>رقم المستشفى</th>
-              <th>تاريخ الموعد</th>
-            </tr>
-          </thead>
-          <tbody>
-
-            {data2.map((item, index) => {
-            {console.log(item.donor__id,myData)}
-            if(item.donor__id==myData){
-            return( 
-            <tr key={index}>
-
-                  <td>
-                    {item.donor__id}
-                  </td>
-            
-
-                  <td>
-
-                    {item.hospital__id}
-                  </td>
-              
-
-                  <td>
-
-                    {item.donation_date}
-                  </td>
-          
-
-                <td>
-
-                  <button onClick={Done} >قبول</button>
-                </td>
-                <td>
-
-                  <button onClick={Reg} >رفض</button>
-                </td>
-
-              </tr>)
-            }
-            })}
-          </tbody>
-        </Table>
 
       </div>
     </Fragment>

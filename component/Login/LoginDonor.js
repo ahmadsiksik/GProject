@@ -21,7 +21,6 @@ export const LoginDonor = (props) => {
 
     const DonerLogin = (event) => {
         event.preventDefault()
-        dispatch(authActions.loginAsDonor());
 
         const DonorLog = {
             identifier: Identifier.current.value,
