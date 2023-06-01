@@ -27,6 +27,7 @@ const Nav = (props) => {
     NoData = window.localStorage.getItem('NoData')
   }
 
+  console.log(myData11);
   const logout = () => {
     window.localStorage.setItem('myDataa', '')
     window.localStorage.setItem('myData11', '')
@@ -52,12 +53,14 @@ const Nav = (props) => {
           {!LoginDonor && !LoginHos && <li className={classes.li}><Link href="/login/LogInAsDoner">تسجيل الدخول </Link></li>}
           {(LoginDonor || LoginHos) && <li className={classes.li}><Link href="/login/LogInAsDoner" onClick={logout} >تسجيل الخروج </Link></li>}
           {(LoginDonor) && !LoginHos && <li className={classes.li} ><Link href="/profile">الملف الشخصي</Link></li>}
-          {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/WaitinRoom">قائمة الانظار</Link></li>}
-          {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/Painding">المتبرعين الجدد</Link></li>}
-          {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/AllDonor">المتبرعين المعتمدين</Link></li>}
-          {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/HomeHos">المتبرعين المتاحين</Link></li>}
-          {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/ActiveDonors">قيد التبرع</Link></li>}
           {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/CanseleDonors">رفض طلبات التبرع </Link></li>}
+          {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/ActiveDonors">قيد التبرع</Link></li>}
+          {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/WaitinRoom">قائمة الانظار</Link></li>}
+          {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/HomeHos">المتبرعين المتاحين</Link></li>}
+          {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/AllDonor">المتبرعين المعتمدين</Link></li>}
+
+                    {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/Painding">المتبرعين الجدد</Link></li>}
+
           <li className={classes.li}><Link href="/">الصفحة الرئيسية</Link></li>
 
 

@@ -24,8 +24,6 @@ function ActiveDonor(props) {
     if (typeof window !== "undefined") {
       myData1 = window.localStorage.getItem('myData1')
     }
-  
-
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -69,55 +67,57 @@ function ActiveDonor(props) {
     };
 
     const deleteData = async (id,d_id) => {
+      const url =`http://127.0.0.1:8000/donor/rating/${d_id}/1/`
+      console.log(url);
         try {
-            const response = await fetch(`http://127.0.0.1:8000/donor/rating/${d_id}/1/`); // استبدال الرابط برابط API الخاص بك
+            const response = await fetch(url); // استبدال الرابط برابط API الخاص بك
             const jsonData = await response.json();
-            setData(jsonData);
           } catch (error) {
             alert('حدث خطأ في جلب البيانات:', error);
           }
           ///////////
-      
+      /*
       try {
         const response = await fetch(`http://127.0.0.1:8000/donations/${id}/delete/`, {
           method: 'DELETE',
         });
         if (response.ok) {
           const responseData = await response.json();
-          alert('Deleted successfully:', responseData);
+          alert('تم التقيم :', responseData);
         } else {
           throw new Error('Failed to delete donor');
         }
       } catch (error) {
         alert('Error deleting data:', error.message);
       }
-      fetchData();
+      */
+      //fetchData();
     };
     const updata=async(id,d_id)=>{
         try {
             console.log("hisham");
-            const response = await fetch(`http://127.0.0.1:8000/donor/rating/3/1/`); // استبدال الرابط برابط API الخاص بك
+            const response = await fetch(`http://127.0.0.1:8000/donor/rating/${d_id}/2/`); // استبدال الرابط برابط API الخاص بك
             const jsonData = await response.json();
-            console.log(response.json());
           } catch (error) {
             alert('حدث خطأ في جلب البيانات:', error);
           }
           ///////////سلماا
-      
+      /*
       try {
         const response = await fetch(`http://127.0.0.1:8000/donations/${id}/delete/`, {
           method: 'DELETE',
         });
         if (response.ok) {
           const responseData = await response.json();
-          alert('Deleted successfully:', responseData);
+          alert('تم التقيم:', responseData);
         } else {
           throw new Error('Failed to delete donor');
         }
       } catch (error) {
         alert('Error deleting data:', error.message);
       }
-      fetchData();
+      */
+      //fetchData();
     }
     
   // const sortName = () => {
@@ -175,11 +175,11 @@ console.log(myData1);
     
                 <td>
 
-                  <button onClick={()=>{deleteData(item.id,item.donor__id)}}>زيادة تقيم</button>
+                  <button onClick={()=>{deleteData(item.id,item.donor__id)}}>تنقيص تقيم</button>
                 </td>
                 <td>
 
-                  <button onClick={()=>{updata(item.id,item.donor__id)}}>تنقيص التقيم</button>
+                  <button onClick={()=>{updata(item.id,item.donor__id)}}>زيادة التقيم</button>
                 </td>
 
               </tr>

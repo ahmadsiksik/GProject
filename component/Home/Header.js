@@ -78,6 +78,8 @@ const Header = () => {
       console.error('Error updating data:', error);
       // تنفيذ الإجراءات الإضافية في حالة حدوث خطأ أثناء التحديث
     }
+    fetchData2();
+
   }
   const dee=async(id) =>{
     const url = `http://127.0.0.1:8000/donations/${id}/patch/`;
@@ -91,6 +93,8 @@ const Header = () => {
       console.error('Error updating data:', error);
       // تنفيذ الإجراءات الإضافية في حالة حدوث خطأ أثناء التحديث
     }
+    fetchData2();
+
   }
       
     return (

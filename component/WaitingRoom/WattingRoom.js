@@ -17,9 +17,8 @@ function WaitingRoom(props) {
   
     const[Close,useClose]=useState(true)
     const[Temp,useTemp]=useState('')
-    const MyID = typeof localStorage !== 'undefined' ? localStorage.getItem('MyID') : null;
-    const Donation_date = useRef();
-    
+    const MyID = typeof localStorage !== 'undefined' ? localStorage.getItem('Idd') : null;
+    const Donation_date = useRef(null);
     var myData1;
     if (typeof window !== "undefined") {
       myData1 = window.localStorage.getItem('myData1')
@@ -27,21 +26,21 @@ function WaitingRoom(props) {
   
 
 
-    const submitHandler = (event) => {
+    const submitHandler =async (event) => {
         event.preventDefault();
-        const donation_date = Donation_date.current.value;
-        useTemp(donation_date);
-        Update();
+        const donation_date =(Donation_date.current.value);
+        Update(donation_date);
     }
 
-    const Update = async() => {
+    const Update = async(donation_date) => {
+
         try {
-            const response = await fetch(`http://127.0.0.1:8000/donations/${MyID}/patch/`, {
+            const response = await fetch(`http://127.0.0.1:8000/donations/174/patch/`, {
               method: 'PATCH',
               headers: {
                 'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(Temp),
+              }, 
+              body: JSON.stringify({donation_date}),
             });
       
             if (response.ok) {
@@ -53,7 +52,7 @@ function WaitingRoom(props) {
             alert('حدث خطأ في إرسال البيانات:', error);
           }
         };
-
+        
         const Cloose = () => {
           setShow(false);
         };
@@ -68,7 +67,7 @@ function WaitingRoom(props) {
       }
     };
 
-    const deleteData = async (id,d_id) => {
+    const deleteData = async (id) => {
       
 
       ////////////////////////////////
@@ -88,7 +87,7 @@ function WaitingRoom(props) {
       fetchData();
     };
     const updata=(id)=>{
-      localStorage.setItem('MyID',id)
+      localStorage.setItem('Idd',id)
       setShow(true);
     }
     
@@ -147,11 +146,11 @@ console.log(myData1);
     
                 <td>
 
-                  <button onClick={()=>{deleteData(item.id,item.donor__id)}}>حذف</button>
+                  <button onClick={()=>{deleteData(item.id)}}>حذف</button>
                 </td>
                 <td>
 
-                  <button onClick={()=>{updata(item.id,item.donor__id)}}>تعديل</button>
+                  <button onClick={()=>{updata(item.id)}}>تعديل</button>
                 </td>
 
               </tr>

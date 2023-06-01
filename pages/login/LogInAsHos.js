@@ -19,9 +19,10 @@ export default function LogInAsHos() {
             body: JSON.stringify(DonorLog),
         });
         if (response.status === 200) {
+          window.localStorage.setItem('myData11','Hos')
           // إعادة تهيئة حالة الرسالة بعد التخزين
           dispatch(authActions.loginAsHos());
-          history.replace('/HomeHos');
+          history.replace('/');
           alert("تم الدخول بنجاح")
         }
         else {
@@ -30,7 +31,6 @@ export default function LogInAsHos() {
         const data = await response.json();
         console.log(data.id);
         window.localStorage.setItem('myData1',data.id)
-        window.localStorage.setItem('myData11','Hos')
     
 
     } catch (error) {

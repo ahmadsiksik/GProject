@@ -69,6 +69,7 @@ function PaindingRoom(props){
         } catch (error) {
           console.error('Error deleting data:', error);
         }
+        fetchData();
       }
       const paacc = async (id) => {
         const url = `http://127.0.0.1:8000/donor/${id}/patch/`;
