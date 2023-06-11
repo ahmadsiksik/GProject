@@ -56,7 +56,7 @@ const Nav = (props) => {
           {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/CanseleDonors">رفض طلبات التبرع </Link></li>}
           {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/ActiveDonors">قيد التبرع</Link></li>}
           {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/WaitinRoom">قائمة الانظار</Link></li>}
-          {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/HomeHos">المتبرعين المتاحين</Link></li>}
+          {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/HomeHos">طلب متبرعين</Link></li>}
           {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/AllDonor">المتبرعين المعتمدين</Link></li>}
 
                     {(LoginDonor || LoginHos) && !LoginDonor && <li className={classes.li} ><Link href="/Painding">المتبرعين الجدد</Link></li>}

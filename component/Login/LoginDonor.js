@@ -80,6 +80,10 @@ export const LoginDonor = (props) => {
                     </div>
                 </div>
             </div>
+            <div className={classes.footer}>
+    <li>للتواصل مع الدعم : </li>
+    <li>mohammed.natour7@gmail.com</li>
+  </div>
         </Fragment>
     );
 

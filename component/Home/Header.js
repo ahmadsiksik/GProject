@@ -165,7 +165,7 @@ const Header = () => {
 
         </Table>
 }
-            <div>
+            <div className={classes.all}>
             <div  className={classes.bg_image} data-aos={"fade-left"} >         
             <h1 className={classes.header} ><b>".تبرعك بالدم يمكن أن يكون شريان الحياة لشخص محتاج. كن بطلاً وامنح الحياة"</b></h1>
 
@@ -210,6 +210,11 @@ const Header = () => {
 </div>}
 
             </div>
+  <div className={classes.footer}>
+    <li>للتواصل مع الدعم : </li>
+    <li>mohammed.natour7@gmail.com</li>
+  </div>
+
         </Fragment>
     )
 }

@@ -76,7 +76,7 @@ function ActiveDonor(props) {
             alert('حدث خطأ في جلب البيانات:', error);
           }
           ///////////
-      /*
+      
       try {
         const response = await fetch(`http://127.0.0.1:8000/donations/${id}/delete/`, {
           method: 'DELETE',
@@ -90,8 +90,8 @@ function ActiveDonor(props) {
       } catch (error) {
         alert('Error deleting data:', error.message);
       }
-      */
-      //fetchData();
+      
+      fetchData();
     };
     const updata=async(id,d_id)=>{
         try {
@@ -99,10 +99,10 @@ function ActiveDonor(props) {
             const response = await fetch(`http://127.0.0.1:8000/donor/rating/${d_id}/2/`); // استبدال الرابط برابط API الخاص بك
             const jsonData = await response.json();
           } catch (error) {
-            alert('حدث خطأ في جلب البيانات:', error);
+  
           }
           ///////////سلماا
-      /*
+      
       try {
         const response = await fetch(`http://127.0.0.1:8000/donations/${id}/delete/`, {
           method: 'DELETE',
@@ -114,10 +114,10 @@ function ActiveDonor(props) {
           throw new Error('Failed to delete donor');
         }
       } catch (error) {
-        alert('Error deleting data:', error.message);
+       
       }
-      */
-      //fetchData();
+      
+      fetchData();
     }
     
   // const sortName = () => {
@@ -175,11 +175,11 @@ console.log(myData1);
     
                 <td>
 
-                  <button onClick={()=>{deleteData(item.id,item.donor__id)}}>تنقيص تقيم</button>
+                  <button onClick={()=>{deleteData(item.id,item.donor__id)}}> لم يأتي بالموعد</button>
                 </td>
                 <td>
 
-                  <button onClick={()=>{updata(item.id,item.donor__id)}}>زيادة التقيم</button>
+                  <button onClick={()=>{updata(item.id,item.donor__id)}}>جاء في الموعد </button>
                 </td>
 
               </tr>
